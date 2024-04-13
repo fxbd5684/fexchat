@@ -1,21 +1,16 @@
 <template>
 	<view class="chat">
-		<scroll-view  :style="{height: `${windowHeight}rpx`}"
-		id="scrollview"
-		scroll-y="true" 
-		:scroll-top="scrollTop"
-		:scroll-with-animation="true"
-		class="scroll-view"
-		>
+		<scroll-view :style="{height: `${windowHeight}rpx`}" id="scrollview" scroll-y="true" :scroll-top="scrollTop"
+			:scroll-with-animation="true" class="scroll-view">
 			<!-- 聊天主体 -->
 			<view id="msglistview" class="chat-body">
 				<!-- 聊天记录 -->
 				<view v-for="(item,index) in msgList" :key="index">
 					<!-- 自己发的消息 -->
-					<view class="item self" v-if="item.userContent != ''" >
+					<view class="item self" v-if="item.userContent != ''">
 						<!-- 文字内容 -->
 						<view class="content right">
-						{{item.userContent}}
+							{{item.userContent}}
 						</view>
 						<!-- 头像 -->
 						<view class="avatar">
@@ -23,7 +18,7 @@
 					</view>
 					<!-- 机器人发的消息 -->
 					<view class="item Ai" v-if="item.botContent != ''">
-						<!-- 头像 -->     
+						<!-- 头像 -->
 						<view class="avatar">
 						</view>
 						<!-- 文字内容 -->
@@ -38,11 +33,8 @@
 		<!-- 用来占位，防止聊天消息被发送框遮挡 -->
 		<view class="chat-bottom">
 			<view class="send-msg">
-                <view class="uni-textarea">
-					<textarea v-model="chatMsg"
-					  maxlength="300"
-					  :show-confirm-bar="false"
-					 auto-height></textarea>
+				<view class="uni-textarea">
+					<textarea v-model="chatMsg" maxlength="300" :show-confirm-bar="false" auto-height></textarea>
 				</view>
 				<button @click="handleSend" class="send-btn">发送</button>
 			</view>
@@ -55,43 +47,42 @@
 			return {
 				//滚动距离
 				scrollTop: 0,
-				userId:'',
+				userId: '',
 				//发送的消息
-				chatMsg:"",
-				msgList:[
-					{
-					    botContent: "hello，请问我有什么可以帮助你的吗？",
-					    recordId: 0,
-					    titleId: 0,
-					    userContent: "",
-					    userId: 0
+				chatMsg: "",
+				msgList: [{
+						botContent: "hello，请问我有什么可以帮助你的吗？",
+						recordId: 0,
+						titleId: 0,
+						userContent: "",
+						userId: 0
 					},
 					{
-					    botContent: "",
-					    recordId: 0,
-					    titleId: 0,
-					    userContent: "你好呀我想问你一件事",
-					    userId: 0
+						botContent: "",
+						recordId: 0,
+						titleId: 0,
+						userContent: "你好呀我想问你一件事",
+						userId: 0
 					},
-				]	
+				]
 			}
 		},
 		computed: {
 			windowHeight() {
-			    return this.rpxTopx(uni.getSystemInfoSync().windowHeight)
+				return this.rpxTopx(uni.getSystemInfoSync().windowHeight)
 			}
 		},
 		methods: {
 			// px转换成rpx
-			rpxTopx(px){
+			rpxTopx(px) {
 				let deviceWidth = wx.getSystemInfoSync().windowWidth
-				let rpx = ( 750 / deviceWidth ) * Number(px)
+				let rpx = (750 / deviceWidth) * Number(px)
 				return Math.floor(rpx)
 			},
 			// 发送消息
 			handleSend() {
 				//如果消息不为空
-				if(!this.chatMsg||!/^\s+$/.test(this.chatMsg)){
+				if (!this.chatMsg || !/^\s+$/.test(this.chatMsg)) {
 					let obj = {
 						botContent: "",
 						recordId: 0,
@@ -101,7 +92,7 @@
 					}
 					this.msgList.push(obj);
 					this.chatMsg = '';
-				}else {
+				} else {
 					this.$modal.showToast('不能发送空白消息')
 				}
 			},
@@ -109,11 +100,15 @@
 	}
 </script>
 <style lang="scss" scoped>
-	
-	$chatContentbgc: #C2DCFF;
-	$sendBtnbgc: #4F7DF5;
-	
-	view,button,text,input,textarea {
+	$chatContentbgc: #dcecff;
+	$sendBtnbgc: rgb(194,142,252);
+	$headimgcoler: rgb(194,142,252);
+
+	view,
+	button,
+	text,
+	input,
+	textarea {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
@@ -123,26 +118,28 @@
 	.chat {
 		.scroll-view {
 			::-webkit-scrollbar {
-					    display: none;
-					    width: 0 !important;
-					    height: 0 !important;
-					    -webkit-appearance: none;
-					    background: transparent;
-					    color: transparent;
-					  }
-			
+				display: none;
+				width: 0 !important;
+				height: 0 !important;
+				-webkit-appearance: none;
+				background: transparent;
+				color: transparent;
+			}
+
 			// background-color: orange;
-			background-color: #F6F6F6;
+			background-color: rgb(26,39,69);
 			
+
 			.chat-body {
 				display: flex;
 				flex-direction: column;
 				padding-top: 23rpx;
 				// background-color:skyblue;
-				
+
 				.self {
 					justify-content: flex-end;
 				}
+
 				.item {
 					display: flex;
 					padding: 23rpx 30rpx;
@@ -151,10 +148,12 @@
 					.right {
 						background-color: $chatContentbgc;
 					}
+
 					.left {
 						background-color: #FFFFFF;
 					}
-                    // 聊天消息的三角形
+
+					// 聊天消息的三角形
 					.right::after {
 						position: absolute;
 						display: inline-block;
@@ -199,10 +198,10 @@
 						justify-content: center;
 						width: 78rpx;
 						height: 78rpx;
-						background: $sendBtnbgc;
+						background: $headimgcoler;
 						border-radius: 8rpx;
 						overflow: hidden;
-						
+
 						image {
 							align-self: center;
 						}
@@ -231,7 +230,7 @@
 
 			.uni-textarea {
 				padding-bottom: 70rpx;
-                
+
 				textarea {
 					width: 537rpx;
 					min-height: 75rpx;
@@ -245,7 +244,7 @@
 					padding: 5rpx 8rpx;
 				}
 			}
-            
+
 			.send-btn {
 				display: flex;
 				align-items: center;
@@ -263,6 +262,6 @@
 				line-height: 28rpx;
 			}
 		}
-		
+
 	}
 </style>
