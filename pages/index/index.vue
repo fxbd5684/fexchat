@@ -13,13 +13,13 @@
 							{{item.userContent}}
 						</view>
 						<!-- 头像 -->
-						<view class="avatar">
+						<view class="avatar">{{item.username}}
 						</view>
 					</view>
 					<!-- 机器人发的消息 -->
 					<view class="item Ai" v-if="item.botContent != ''">
 						<!-- 头像 -->
-						<view class="avatar">
+						<view class="avatar">{{item.username}}
 						</view>
 						<!-- 文字内容 -->
 						<view class="content left">
@@ -52,17 +52,13 @@
 				chatMsg: "",
 				msgList: [{
 						botContent: "hello，请问我有什么可以帮助你的吗？",
-						recordId: 0,
-						titleId: 0,
 						userContent: "",
-						userId: 0
+						username: 'AI'
 					},
 					{
 						botContent: "",
-						recordId: 0,
-						titleId: 0,
 						userContent: "你好呀我想问你一件事",
-						userId: 0
+						username: 'fxbd'
 					},
 				]
 			}
@@ -88,24 +84,35 @@
 						recordId: 0,
 						titleId: 0,
 						userContent: this.chatMsg,
-						userId: 0
+						userId: 'test'
 					}
-					this.msgList.push(obj);
+					this.msgList.unshift(obj);
 					this.chatMsg = '';
-				} else {
-					this.$modal.showToast('不能发送空白消息')
-				}
+				} else {}
 			},
 		}
 	}
 </script>
 <style lang="scss" scoped>
-	$chatContentbgc: #dcecff;
-	$sendBtnbgc: rgb(160, 136, 252);
-	$headimgcoler: rgb(194, 142, 252);
-	$inputboxc: rgb(57,58,59);
-	$msgboxbgc: rgb(40,41,42);
-	
+	$chatContentbgc: rgb(56, 57, 58);
+	$msgfontc: rgb(225, 225, 225);
+
+	// $sendBtnbgc: rgb(183, 192, 252);
+	$sendBtnbgc: linear-gradient(random(360)+deg,
+			rgb(173, 184, 252), rgb(219, 173, 252));
+
+	$inputboxc: rgb(56, 57, 58);
+	$msgboxbgc: rgb(40, 41, 42);
+
+
+	$headimgc: linear-gradient(217deg,
+			rgba(178, 114, 255, 1.0),
+			rgba(255, 0, 0, 0) 70.71%),
+		linear-gradient((random(360)+deg),
+			rgba(74, 177, 255, 1.0),
+			rgba(255, 199, 236, 1.0) 60%);
+
+
 
 	view,
 	button,
@@ -119,7 +126,7 @@
 
 	/* 聊天消息 */
 	.chat {
-		background-color: rgb(16, 17, 19);
+		background-color: rgb(16, 17, 18);
 
 		.scroll-view {
 			::-webkit-scrollbar {
@@ -152,7 +159,7 @@
 					}
 
 					.left {
-						background-color: #FFFFFF;
+						background-color: $chatContentbgc;
 					}
 
 					// 聊天消息的三角形
@@ -177,7 +184,7 @@
 						top: 10px;
 						right: 100%;
 						border: 12rpx solid transparent;
-						border-right: 12rpx solid #FFFFFF;
+						border-right: 12rpx solid $chatContentbgc;
 					}
 
 					.content {
@@ -191,16 +198,18 @@
 						font-size: 32rpx;
 						font-family: PingFang SC;
 						font-weight: 500;
-						color: #333333;
+						color: $msgfontc;
 						line-height: 42rpx;
 					}
 
 					.avatar {
+						font-size: 8px;
+						color: rgba(255, 255, 255, 0.75);
 						display: flex;
 						justify-content: center;
 						width: 78rpx;
 						height: 78rpx;
-						background: $headimgcoler;
+						background: $headimgc;
 						border-radius: 8rpx;
 						overflow: hidden;
 
@@ -217,7 +226,6 @@
 		.chat-bottom {
 			width: 100%;
 			height: 177rpx;
-			background: #F4F5F7;
 
 			.send-msg {
 				display: flex;
@@ -260,7 +268,7 @@
 				font-size: 28rpx;
 				font-family: PingFang SC;
 				font-weight: 500;
-				color: #FFFFFF;
+				color: rgb(40, 41, 42);
 				line-height: 28rpx;
 			}
 		}
