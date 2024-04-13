@@ -101,8 +101,11 @@
 </script>
 <style lang="scss" scoped>
 	$chatContentbgc: #dcecff;
-	$sendBtnbgc: rgb(194,142,252);
-	$headimgcoler: rgb(194,142,252);
+	$sendBtnbgc: rgb(160, 136, 252);
+	$headimgcoler: rgb(194, 142, 252);
+	$inputboxc: rgb(57,58,59);
+	$msgboxbgc: rgb(40,41,42);
+	
 
 	view,
 	button,
@@ -116,6 +119,8 @@
 
 	/* 聊天消息 */
 	.chat {
+		background-color: rgb(16, 17, 19);
+
 		.scroll-view {
 			::-webkit-scrollbar {
 				display: none;
@@ -127,9 +132,6 @@
 			}
 
 			// background-color: orange;
-			background-color: rgb(26,39,69);
-			
-
 			.chat-body {
 				display: flex;
 				flex-direction: column;
@@ -225,7 +227,7 @@
 				min-height: 177rpx;
 				position: fixed;
 				bottom: 0;
-				background: #EDEDED;
+				background: $msgboxbgc;
 			}
 
 			.uni-textarea {
@@ -235,11 +237,11 @@
 					width: 537rpx;
 					min-height: 75rpx;
 					max-height: 500rpx;
-					background: #FFFFFF;
+					background: $inputboxc;
 					border-radius: 8rpx;
 					font-size: 32rpx;
 					font-family: PingFang SC;
-					color: #333333;
+					color: #ffffff;
 					line-height: 43rpx;
 					padding: 5rpx 8rpx;
 				}
